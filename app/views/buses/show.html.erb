@@ -1,0 +1,5 @@
+<h1>Name: <%= @bus.name %></h1>
+<h1>Registration no: <%= @bus.registration_no %></h1>
+<h1>Source Route: <%= @bus.source_route %></h1>
+<h1>Destination Route: <%= @bus.destination_route %></h1>
+<%= link_to "View Seats", new_bus_reservation_path(@bus)%>

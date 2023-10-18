@@ -1,0 +1,14 @@
+<%@reservations.each { |reservation| %>
+<div>
+  <h1>Ticket No: <%= reservation.id %></h1>
+</div>
+<div>
+  <h1>Bus: <%= reservation.bus.name %></h1>
+</div>
+<div>
+  <h1>seat no: <%= reservation.seat.seat_no %></h1>
+</div>
+<div>
+  <%= link_to "Cancel",bus_reservation_path(reservation.bus,reservation.id), data: { turbo_method: :delete, turbo_confirm: "Are you sure?!" }, class: "button" %>
+</div>
+<%} %>

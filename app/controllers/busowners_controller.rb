@@ -1,0 +1,2 @@
+class BusownersController < ApplicationController
+end

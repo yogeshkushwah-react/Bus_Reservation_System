@@ -1,0 +1,10 @@
+<%= form_with(model:[@bus,@reservation], html: {'data-turbo' => "false"}) do |f| %>
+  <%= f.label :reservation_for %>
+  <%= f.date_field :reservation_for %>
+  <div class="bus">
+    <div class="seat">
+      <%= f.collection_check_boxes :seat_id, Seat.order(:seat_no), :id, :seat_no %>
+    </div>
+  </div>
+  <%= f.submit "Book" %>
+<% end %>

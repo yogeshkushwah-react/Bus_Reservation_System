@@ -1,0 +1,23 @@
+<%= form_with(model:@bus) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name,autofocus:true %>
+  </div>
+  <div>
+    <%= f.label :registration_no %>
+    <%= f.text_field :registration_no %>
+  </div>
+  <div>
+    <%= f.label :source_route %>
+    <%= f.text_field :source_route %>
+  </div>
+  <div>
+    <%= f.label :destination_route %>
+    <%= f.text_field :destination_route %>
+  </div>
+  <div>
+    <%= f.label :no_of_seats %>
+    <%= f.number_field :no_of_seats %>
+  </div>
+  <%= f.submit :submit%>
+<% end %>

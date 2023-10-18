@@ -1,0 +1,7 @@
+<%= form_with(url:search_buses_path,method: :get,class:"d-flex align-items-center w-100 form-search") do |f| %>
+  <div class="col-xs-4">
+    <%= f.search_field :query,class:"form-control", placeholder:"Search by bus name or route" %>
+  </div>
+  <%= f.submit "Search",class:"btn btn-primary" %>
+  <%# <a href="#!" class="text-white"><i class="fas fa-search ps-3"></i>Search</a> %>
+<% end %>
