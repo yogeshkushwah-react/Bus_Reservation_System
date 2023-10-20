@@ -1,5 +1,5 @@
 class BusesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show,:search]
+  before_action :authenticate_user!, except: [:index, :show, :search]
   before_action :set_bus, except: [:index, :new, :create, :search]
 
   def index
@@ -15,8 +15,8 @@ class BusesController < ApplicationController
   end
 
   def create
+    authorize Bus
     @bus = Bus.new(bus_params)
-    authorize @bus
     @bus.bus_owner = current_user
     @bus.create_seats
     if @bus.save

@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :reservations
-  has_many :buses, through: :reservations
   has_many :seats, through: :reservations
+  has_many :buses
 
   enum :role, { bus_owner: "bus_owner", user: "user", admin: "admin" }
 end

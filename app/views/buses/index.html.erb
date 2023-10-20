@@ -1,13 +1,19 @@
-<% @buses.each { |bus|%>
-<div class="card" style="width: 100%">
-  <img src="bus-image.jpg" class="card-img-top" alt="Bus Image">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-6">
-        <h5 class="card-title"><%= bus.name.upcase %></h5>
+<%= javascript_include_tag "reservationDate" %>
+<% @buses.each do |bus|%>
+  <div class="card" style="width: 100%">
+    <%# <img src="bus-image.jpg" class="card-img-top" alt="Bus Image"> %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="card-title"><%= link_to bus.name.upcase, bus_path(bus) %></h5>
+        </h5>
       </div>
       <div class="col-md-6 text-md-end">
-        <%= link_to "View Seats",new_bus_reservation_path(bus),class:"btn btn-primary"  %>
+        <% if bus.approved? %>
+          <%= link_to "View Seats",new_bus_reservation_path(bus),class:"btn btn-primary"  %>
+        <% elsif policy(bus).show?%>
+          <h6><%= bus.status && bus.status.capitalize %></h6>
+        <% end %>
       </div>
     </div>
     <div class="my-3"></div>
@@ -15,4 +21,4 @@
     <p class="card-text"><%= bus.source_route.upcase %> to <%= bus.destination_route.upcase %></p>
   </div>
 </div>
-<% } %>
+<% end %>

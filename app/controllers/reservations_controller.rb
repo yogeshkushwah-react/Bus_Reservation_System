@@ -3,17 +3,11 @@ class ReservationsController < ApplicationController
   before_action :set_bus
 
   def index
-    # if current_user.bus_owner?
-    #   @reservations = Reservation.all
-    # else
-    #   @reservations = current_user.reservations.all
-    # end
     @reservations = policy_scope(Reservation)
   end
 
   def new
     @reservation = Reservation.new
-    
   end
 
   def create
@@ -34,7 +28,9 @@ class ReservationsController < ApplicationController
   end
 
   def check_availability
-    @available_seats
+    binding.pry
+    @total_seats = @bus.seats
+    @booked_seats = Reservation.select(seat_id).where(bus_id: params[:id], reservation_for: params[:reservation_date])
   end
 
   private

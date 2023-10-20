@@ -9,11 +9,20 @@ Rails.application.routes.draw do
                      }
 
   resources :buses do
-    collection do
-      get "search"
+    get "search", on: :collection
+    resources :reservations do
+      post "check_availability", on: :collection
     end
-    resources :reservations
   end
-  get "admin/sign_in", to: redirect("users/sign_in")
-  resources :admin
+
+  get "busowner/profile" => "busowners#show"
+  get "busowners" => "busowners#index"
+  get "busowners/:id/buses" => "busowners#bus_owner_buses", as: "bus_owner_buses"
+
+  scope "/admin" do
+    get "sign_in", to: redirect("users/sign_in")
+    get "profile", to: "admin#show"
+    get "approve_bus/:id", to: "admin#approve_bus", as: "approve_bus"
+    get "reject_bus/:id", to: "admin#reject_bus", as: "reject_bus"
+  end
 end
