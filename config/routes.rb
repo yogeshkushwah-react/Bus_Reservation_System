@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :buses do
     get "search", on: :collection
     resources :reservations do
-      post "check_availability", on: :collection
+      get "check_availability", on: :collection
     end
   end
 

@@ -11,8 +11,8 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    seat_ids = params[:reservation][:seat_id].reject(&:blank?)
-    reservation_for = params[:reservation][:reservation_for]
+    seat_ids = params[:seat_id].reject(&:blank?)
+    reservation_for = params[:reservation_for]
     @reservation = Reservation.create_reservation(@bus, current_user, seat_ids, reservation_for)
     if @reservation
       redirect_to bus_reservations_path(@bus), notice: "Reservation successful"
@@ -28,9 +28,10 @@ class ReservationsController < ApplicationController
   end
 
   def check_availability
-    binding.pry
     @total_seats = @bus.seats
-    @booked_seats = Reservation.select(seat_id).where(bus_id: params[:id], reservation_for: params[:reservation_date])
+    @booked_seats = Reservation.where(bus_id: params[:bus_id], reservation_for: params[:reservation_for]).pluck(:seat_id)
+
+    render partial: "available_seats", locals: { total_seats: @total_seats, booked_seats: @booked_seats }
   end
 
   private

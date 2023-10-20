@@ -1,0 +1,12 @@
+<% if @total_seats.any? %>
+  <h3>Available Seats:</h3>
+  <%= form_with url:bus_reservations_path(@bus), method: :post, remote: true do |f| %>
+    <%= f.hidden_field :reservation_for, value: params[:reservation_for] %>
+    <%= f.collection_check_boxes :seat_id, @total_seats, :id, :seat_no, {disabled: ->(id) { alreadyBooked?(@booked_seats,id.id)}}  do |b|%>
+      <%= b.check_box(class:alreadyBooked?(@booked_seats,b.object.id) ? 'bg-secondary ' : 'bg-dark')  %>
+    <% end %>
+    <%= f.submit "Book Ticket" %>
+  <% end %>
+<% else %>
+  <p>No available seats for the selected date.</p>
+<% end %>
