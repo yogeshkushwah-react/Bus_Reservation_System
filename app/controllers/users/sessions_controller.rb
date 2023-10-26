@@ -24,4 +24,14 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+
+  def after_sign_in_path_for(resource)
+    if current_user.admin?
+      profile_path
+    elsif current_user.bus_owner?
+      busowner_profile_path
+    else
+      super(resource)
+    end
+  end
 end

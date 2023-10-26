@@ -3,7 +3,7 @@ class BusownersController < ApplicationController
 
   def show
     @user = current_user
-    authorize @user
+    authorize @user,:busowner?
     render layout: "profile"
   end
 

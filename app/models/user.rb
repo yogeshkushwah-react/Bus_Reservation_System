@@ -8,4 +8,6 @@ class User < ApplicationRecord
   has_many :buses
 
   enum :role, { bus_owner: "bus_owner", user: "user", admin: "admin" }
+
+  validates :email, uniqueness: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 end
