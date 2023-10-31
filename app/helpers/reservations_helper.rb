@@ -22,7 +22,7 @@ module ReservationsHelper
 
   def render_seat(seat, booked_seats)
     label_class = "reserved" if booked_seats.include?(seat.id)
-    check_box_options = { id: "seat_#{seat.id}" }
+    check_box_options = { id: "seat_#{seat.id}", class: "seat-checkbox" }
     check_box_options[:disabled] = true if booked_seats.include?(seat.id)
     check_box_tag("seat_ids[]", seat.id, booked_seats.include?(seat.id), check_box_options) +
     label_tag("seat_#{seat.id}", seat.seat_no, class: label_class)

@@ -7,8 +7,21 @@
         <%= render_seats(@total_seats, @booked_seats) %>
       </div>
     </div>
-    <%= f.submit "Book Seats", class:"btn btn-outline-primary book-button" %>
+    <%= f.submit "Book Seats", class:"btn btn-outline-primary book-button  " %>
   <% end %>
 <% else %>
   <p>No available seats for the selected date.</p>
 <% end %>
+<script>
+  $(".book-button").hide();
+
+  $(".rseat").click(function() {
+  let checkedCheckboxes = $(".seat-checkbox:checked");
+  let disabledCheckedCheckboxes = $(".seat-checkbox:disabled:checked");
+  if (checkedCheckboxes.length > disabledCheckedCheckboxes.length) {
+    $(".book-button").show();
+  } else {
+    $(".book-button").hide();
+  }
+  });
+</script>

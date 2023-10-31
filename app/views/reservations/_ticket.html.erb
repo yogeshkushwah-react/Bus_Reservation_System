@@ -1,7 +1,7 @@
 <div>
   <h5>Find reservation For Perticular Date 
     <%= form_with(url: path,method: :get) do |f| %>
-      <%= f.date_field :reservation_for %>
+      <%= f.date_field :reservation_for,value: Date.today %>
       <%= f.submit "Find Reservations" %>
     <% end %>
   </h5>
@@ -87,5 +87,5 @@
     </div>
   </div>
 <% else %>
-  <p class="text-center mt-5">Reservation not available for <%= params[:reservation_for] %>  </p>
+  <p class="text-center mt-5">Reservation not available<%if params[:reservation_for]%> for <%end%> <%= params[:reservation_for] %>  </p>
 <% end %>

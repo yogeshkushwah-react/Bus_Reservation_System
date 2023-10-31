@@ -80,3 +80,5 @@ gem "pry", "~> 0.14.2"
 gem "font-awesome-sass", "~> 6.4.2"
 
 gem "pundit", "~> 2.3"
+
+gem "letter_opener", "~> 1.8"

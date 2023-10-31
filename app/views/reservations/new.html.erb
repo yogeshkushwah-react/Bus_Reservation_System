@@ -1,13 +1,23 @@
 <%= form_with url:bus_reservations_path(@bus), remote: true do |f| %>
   <%= f.hidden_field :bus_id,value:@bus.id,id:"bus_id" %>
   <%= f.label :reservation_for %>
-  <%= f.date_field :reservation_for, id:"reservation_date"%>
+  <%= f.date_field :reservation_for, id:"reservation_date", value: Date.today,min:Date.today%>
 <% end %>
 <div id="available-seats"></div>
 <script>
   $(function() {
-     $('#reservation_date').on('change', function() {
-         let reservation_for = $(this).val();
+    $('#reservation_date').keypress(function(e){
+      e.preventDefault();
+    })
+
+   $('#reservation_date').on('change', function() {
+        check_availability();
+     })
+
+
+    function check_availability(){
+
+         let reservation_for = $('#reservation_date').val();
          let busId = $('#bus_id').val()
          if (reservation_for) {
              $.ajax({
@@ -22,6 +32,9 @@
 
              })
          }
-     })
+
+    }
+    check_availability();
+
   })
 </script>
