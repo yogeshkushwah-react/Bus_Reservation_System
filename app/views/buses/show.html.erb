@@ -15,7 +15,7 @@
                   </a>
                 </div>
               </div>
-              <div class="col-md-6 col-lg-6 col-xl-6">
+              <div class="col-md-8 col-lg-8 col-xl-8">
                 <h5><%= @bus.name %></h5>
                 <div class="d-flex flex-row">
                   <div class="text-danger mb-1 me-2">
@@ -41,22 +41,15 @@
                   <span class="text-primary"> : </span>
                   <span> <%= @bus.destination_route.capitalize %></span>
                 </div>
-                <h4 class="mb-1 me-1 small">Status:<% if policy(@bus).show?|| policy(User).admin?  %>
-                    <%= @bus.status.capitalize  %>
+                <h4 class="mb-1 me-1 small"><% if policy(@bus).show?|| policy(User).admin?  %>
+                    Status: <%= @bus.status.capitalize  %>
                   <% end %></h4>
                 <% if policy(@bus).show? %>
-                  <%= link_to "Edit",  edit_bus_path(@bus),class:"btn btn-primary "%>
-                  <%= link_to "Delete", @bus ,data:{turbo_method: :delete,turbo_confirm: "Are you sure?"},class:"btn btn-danger "%>
+                  <%= link_to "Edit",  edit_bus_path(@bus),class:"btn btn-outline-primary "%>
+                  <%= link_to "Delete", @bus ,data:{turbo_method: :delete,turbo_confirm: "Are you sure?"},class:"btn btn-outline-danger "%>
+                  <%= link_to "Bookings",bus_reservations_path(@bus),class:"btn btn-outline-primary "%>
                 <% end %>
-                <% if policy(User).admin? %>
-                  <% if  @bus.approved?%>
-                    <%= link_to "Reject",  reject_bus_path(@bus),class:"btn btn-danger mt-2"%>
-                  <% else%>
-                    <%= link_to "Approve", approve_bus_path(@bus) ,class:"btn btn-primary mt-2"%>  <% end %>
-                <% end %>
-                <% if @bus.approved? %>
-                  <%= link_to "View Seats", new_bus_reservation_path(@bus),class:"btn btn-outline-primary mt-2 "%>
-                <% end %>
+                <%= render "buses/adminoruser",bus:@bus %>
               </div>
             </div>
           </div>
@@ -64,6 +57,5 @@
       </div>
     </div>
   </div>
-</div>
 </div>
 </section>

@@ -1,7 +1,19 @@
- <% if @buses.any? %>
+<div class="hero">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 bus1">
+        <%= image_tag "Bus1.png", class: "img-fluid", height: "88", width: "219", alt: "Gems Bus Booking" %>
+      </div>
+      <div class="col-6 bus2 text-right">
+        <%= image_tag "Bus2.png", class: "img-fluid", height: "88", width: "219", alt: "Book Online Bus" %>
+      </div>
+    </div>
+  </div>
+</div>
+<% if @buses.any? %>
   <section style="background-color: #eee;">
     <div class="container py-5">
-      <% @buses.each do |bus|%>
+      <% @buses.each do |bus| %>
         <div class="row justify-content-center mb-3">
           <div class="col-md-12 col-xl-10">
             <div class="card shadow-0 border rounded-3">
@@ -27,11 +39,10 @@
                   </div>
                   <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                     <div class="d-flex flex-row align-items-center mt-4">
-                      <% if bus.approved? %>
-                        <%= link_to "View Seats",new_bus_reservation_path(bus),class:"btn btn-primary"  %>
-                      <% elsif policy(bus).show?%>
-                        <h6 class="text-danger"><%= bus.status && bus.status.capitalize %></h6>
+                      <% if policy(bus).show? && !bus.approved? %>
+                        <h6 class="text-danger mt-2 ms-1 "><%= bus.status.capitalize %></h6>
                       <% end %>
+                      <%= render "buses/adminoruser", bus: bus %>
                     </div>
                   </div>
                 </div>

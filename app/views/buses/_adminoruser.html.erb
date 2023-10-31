@@ -1,0 +1,9 @@
+ <% if policy(User).admin? %>
+  <% if  bus.approved?%>
+    <%= link_to "Reject",  reject_bus_path(bus),class:"btn btn-outline-danger mt-2"%>
+  <% else%>
+    <%= link_to "Approve", approve_bus_path(bus) ,class:"btn btn-outline-primary mt-2"%>  <% end %>
+<% end %>
+<% if bus.approved? %>
+  <%= link_to "View Seats", new_bus_reservation_path(bus),class:"btn btn-outline-primary ms-1 mt-2  "%>
+<% end %>
