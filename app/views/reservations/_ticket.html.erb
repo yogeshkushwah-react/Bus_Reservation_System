@@ -1,89 +1,107 @@
-<div>
-  <h5>Find reservation For Perticular Date 
-    <%= form_with(url: path,method: :get) do |f| %>
-      <%= f.date_field :reservation_for,value: Date.today %>
-      <%= f.submit "Find Reservations" %>
-    <% end %>
-  </h5>
+<div class="container">
+  <div class="row justify-content-center mt-5 ">
+    <div class="col-md-6">
+      <div class="card rounded-left">
+        <div class="card-body text-center">
+          <h5>Find Reservation For Perticular Date 
+            <%= form_with(url: path,method: :get) do |f| %>
+              <div class="mt-3">
+                <%= f.date_field :reservation_for,value: Date.today %>
+                <%= f.submit "Find Reservations",class:'btn btn-outline-primary btn-sm' %>
+              </div>
+            <% end %>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <% if reservations.any? %>
-  <div class="">
-    <div class="d-flex flex-wrap ms-10">
-      <%reservations.each do |reservation| %>
-        <div class="box ">
-          <ul class="left">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-          <ul class="right">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-          <div class="ticket">
-            <span class="airline">
-              <%= reservation.bus.name %>
-            </span>
-            <span class="bus_no">
-              <%= reservation.bus.registration_no %>
-            </span>
-            <span class="boarding">Bus pass</span>
-            <div class="content">
-              <span class="jfk">
-                <%= reservation.bus.source_route.upcase %>
-                <span class="plane">
-                  To
-                </span>
-              </span>
-              <span class="sfo">
-                <%= reservation.bus.destination_route.upcase %>
-              </span>
-              <div class="sub-content">
-                <span class="name">PASSENGER NAME<br>
-                  <%= reservation.user.email %>
-                </span>
-                <span class="gate">Ticket No.<br>
-                  <%= reservation.id %>
-                </span>
-                <span class="seat">Seat<br>
-                  <%= reservation.seat.seat_no %>
-                </span>
-                <span class="boardingtime">BOARDING TIME<br>
-                  <span><%= reservation.reservation_for.strftime(" %d %b %Y") %></span>
-                </span>
-              </div>
-            </div>
-            <div class="barcode"> </div>
-            <div class="cancel">
-              <%= link_to "Cancel" ,bus_reservation_path(reservation.bus,reservation.id), data: { turbo_method: :delete,
+  <div class="container">
+    <div class="row justify-content-center mt-5 ">
+      <div class="col-md-12">
+        <div class="card rounded-left">
+          <div class="">
+            <div class="d-flex flex-wrap" style="margin-left:9rem;marign-top:10px">
+              <%reservations.each do |reservation| %>
+                <div class="box ">
+                  <ul class="left">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                  </ul>
+                  <ul class="right">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                  </ul>
+                  <div class="ticket">
+                    <span class="airline">
+                      <%= reservation.bus.name %>
+                    </span>
+                    <span class="bus_no">
+                      <%= reservation.bus.registration_no %>
+                    </span>
+                    <span class="boarding">Bus pass</span>
+                    <div class="content">
+                      <span class="jfk">
+                        <%= reservation.bus.source_route.upcase %>
+                        <span class="plane">
+                          To
+                        </span>
+                      </span>
+                      <span class="sfo">
+                        <%= reservation.bus.destination_route.upcase %>
+                      </span>
+                      <div class="sub-content">
+                        <span class="name">PASSENGER NAME<br>
+                          <%= reservation.user.full_name %>
+                        </span>
+                        <span class="gate">Ticket No.<br>
+                          <%= reservation.id %>
+                        </span>
+                        <span class="seat">Seat<br>
+                          <%= reservation.seat.seat_no %>
+                        </span>
+                        <span class="boardingtime">BOARDING TIME<br>
+                          <span><%= reservation.reservation_for.strftime(" %d %b %Y") %></span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="barcode"> </div>
+                    <div class="cancel">
+                      <%= link_to "Cancel" ,bus_reservation_path(reservation.bus,reservation.id), data: { turbo_method: :delete,
           turbo_confirm: "Are you sure?!" }, class: "btn btn-danger btn-sm" %>
+                    </div>
+                  </div>
+                </div>
+              <%end %>
             </div>
           </div>
         </div>
-      <%end %>
+      </div>
     </div>
   </div>
 <% else %>
