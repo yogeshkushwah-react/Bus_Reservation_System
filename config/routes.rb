@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
                        sessions: "users/sessions",
+                       registrations: "users/registrations",
                      }
 
   get "user/reservations" => "users#user_reservation"
@@ -30,5 +31,8 @@ Rails.application.routes.draw do
     get "reject_bus/:id", to: "admin#reject_bus", as: "reject_bus", constraints: { id: /[0-9]+/ }
     get "reservations" => "users#user_reservation"
   end
-  match "*unmatched", to: "application#not_found", via: :all
+
+  match "*unmatched", to: "application#not_found", via: :all, constraints: ->(req) {
+                        !req.path.start_with?("/rails/active_storage")
+                      }
 end

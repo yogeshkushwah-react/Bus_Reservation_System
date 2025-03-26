@@ -1,5 +1,5 @@
 <% if @total_seats.any? %>
-  <h3>Available Seats:</h3>
+  <h3 class="text-center">Available Seats for <%= params[:reservation_for] %></h3>
   <%= form_with url:bus_reservations_path(@bus), method: :post, remote: true do |f| %>
     <%= f.hidden_field :reservation_for, value: params[:reservation_for] %>
     <div class="bus-layout">

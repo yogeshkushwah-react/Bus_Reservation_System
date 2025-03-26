@@ -2,17 +2,26 @@
   <div class="container h-100 ">
     <div class="row d-flex justify-content-center align-items-center h-100 p-5">
       <div class="col-lg-12 col-xl-11">
-        <div class="card text-black w-75 h-75" style="border-radius: 25px;margin-left:150px">
+        <div class="card text-black w-100 h-75" style="border-radius: 25px;">
           <div class="card-body p-md-5 ">
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
                 <%= form_for(resource, as: resource_name, url: registration_path(resource_name),class:"mx-1 mx-md-4") do |f| %>
                   <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fa-solid fa-lg me-3 fa-user"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <%= f.label :full_name ,class:"form-label" %>
+                      <%= f.text_field :full_name, autofocus: true, autocomplete: "full_name",id:"form3Example3c" ,class:"form-control" %>
+                      <div class="text-danger"><%= resource.errors[:full_name].first %></div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <%= f.label :email ,class:"form-label" %>
                       <%= f.email_field :email, autofocus: true, autocomplete: "email",id:"form3Example3c" ,class:"form-control" %>
+                      <div class="text-danger"><%= resource.errors[:email].first %></div>
                     </div>
                   </div>
                   <div class="d-flex flex-row align-items-center mb-4">
@@ -32,7 +41,30 @@
                     </div>
                   </div>
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <i class="fa-solid fa-lg me-3 fa-location-dot"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <%= f.label :address,class:"form-label"  %>
+                      <%= f.text_area :address, autocomplete: "address",id:"form3Example4cd" ,class:"form-control" %>
+                      <div class="text-danger"><%= resource.errors[:address].first %></div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fa-solid fa-lg me-3 fa-phone"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <%= f.label :phone_no,class:"form-label"  %>
+                      <%= f.telephone_field :phone_no, autocomplete: "phone_no",id:"form3Example4cd" ,class:"form-control" %>
+                      <div class="text-danger"><%= resource.errors[:phone_no].first %></div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fa fa-upload fa-lg me-3" aria-hidden="true"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <%= f.label :user_image,"Upload Image" %>
+                      <%= f.file_field :user_image,class: "form-control"  %>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fa-solid  fa-lg fa-users me-3"></i>
                     <div class="form-outline flex-fill mb-0">
                       <%= f.label :role ,class:"form-label" %>
                       <%= f.select(:role, User.roles.except(:admin).map {|key,value| [key.titleize,value]},selected: "user",class:"form-control") %>

@@ -1,8 +1,20 @@
-<%= form_with url:bus_reservations_path(@bus), remote: true do |f| %>
-  <%= f.hidden_field :bus_id,value:@bus.id,id:"bus_id" %>
-  <%= f.label :reservation_for %>
-  <%= f.date_field :reservation_for, id:"reservation_date", value: Date.today,min:Date.today%>
-<% end %>
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body text-center">
+          <%= form_with url: bus_reservations_path(@bus), remote: true do |f| %>
+            <%= f.hidden_field :bus_id, value: @bus.id, id: "bus_id" %>
+            <div class="form-group">
+              <%= f.label :reservation_for,"Select date for Reservation" %>
+              <%= f.date_field :reservation_for, id: "reservation_date", value: Date.today, min: Date.today,class:"ms-2" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="available-seats"></div>
 <script>
   $(function() {
