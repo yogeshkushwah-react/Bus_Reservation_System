@@ -1,0 +1,91 @@
+<div>
+  <h5>Find reservation For Perticular Date 
+    <%= form_with(url: path,method: :get) do |f| %>
+      <%= f.date_field :reservation_for %>
+      <%= f.submit "Find Reservations" %>
+    <% end %>
+  </h5>
+</div>
+<% if reservations.any? %>
+  <div class="">
+    <div class="d-flex flex-wrap ms-10">
+      <%reservations.each do |reservation| %>
+        <div class="box ">
+          <ul class="left">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <ul class="right">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <div class="ticket">
+            <span class="airline">
+              <%= reservation.bus.name %>
+            </span>
+            <span class="bus_no">
+              <%= reservation.bus.registration_no %>
+            </span>
+            <span class="boarding">Bus pass</span>
+            <div class="content">
+              <span class="jfk">
+                <%= reservation.bus.source_route.upcase %>
+                <span class="plane">
+                  To
+                </span>
+              </span>
+              <span class="sfo">
+                <%= reservation.bus.destination_route.upcase %>
+              </span>
+              <div class="sub-content">
+                <span class="name">PASSENGER NAME<br>
+                  <%= reservation.user.email %>
+                </span>
+                <span class="gate">Ticket No.<br>
+                  <%= reservation.id %>
+                </span>
+                <span class="seat">Seat<br>
+                  <%= reservation.seat.seat_no %>
+                </span>
+                <span class="boardingtime">BOARDING TIME<br>
+                  <span><%= reservation.reservation_for.strftime(" %d %b %Y") %></span>
+                </span>
+              </div>
+            </div>
+            <div class="barcode"> </div>
+            <div class="cancel">
+              <%= link_to "Cancel" ,bus_reservation_path(reservation.bus,reservation.id), data: { turbo_method: :delete,
+          turbo_confirm: "Are you sure?!" }, class: "btn btn-danger btn-sm" %>
+            </div>
+          </div>
+        </div>
+      <%end %>
+    </div>
+  </div>
+<% else %>
+  <p class="text-center mt-5">Reservation not available for <%= params[:reservation_for] %>  </p>
+<% end %>

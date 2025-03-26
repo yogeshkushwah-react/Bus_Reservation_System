@@ -1,1 +1,21 @@
 @media (max-width: 767.98px) { .border-sm-start-none { border-left: none !important; } }
+.hero {
+    height: 350px;
+    background-image:url("Bus_Banner01.jpg");
+    background-repeat: repeat;
+    animation: 50s linear infinite marquee;
+}
+
+.hero img {
+    margin-top: 240px;
+}
+
+@keyframes marquee {
+    0% {
+        background-position: 0;
+    }
+
+    100% {
+        background-position: -1190px;
+    }
+}

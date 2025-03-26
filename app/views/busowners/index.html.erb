@@ -1,7 +1,43 @@
-
-<% @bus_owners.each { |bus_owner| %>
-<div>
-  Email :<%=bus_owner.email %>
-  <%= link_to "Buses", bus_owner_buses_path(bus_owner)	%>
-</div>
-<%} %>
+<% if @bus_owners.any? %>
+  <section style="background-color: #eee;">
+    <div class="container py-5">
+      <% @bus_owners.each do |bus_owner|%>
+        <div class="row justify-content-center mb-3">
+          <div class="col-md-12 col-xl-10">
+            <div class="card shadow-0 border rounded-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                    <div class="bg-image hover-zoom ripple rounded ripple-surface ">
+                      <div class="parent-div w-50">
+                        <%=  %>
+                      </div>
+                      <a href="#!">
+                        <div class="hover-overlay">
+                          <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-xl-6 mt-4">
+                    <h5><%= bus_owner.email %></h5>
+                    <div class="mb-2 text-muted big">
+                      <span><%= bus_owner.email %></span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                    <div class="d-flex flex-row align-items-center mt-4">
+                      <%= link_to "Buses", bus_owner_buses_path(bus_owner),class:"btn btn-outline-primary ms-5" 	%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+<% else %>
+  <p class="text-center mt-5">Busowners are not available</p>
+<% end %>

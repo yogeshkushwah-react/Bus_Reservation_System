@@ -1,9 +1,11 @@
 class ReservationsController < ApplicationController
-  before_action :authenticate_user!, except: [:new]
+  before_action :authenticate_user!, except: [:new, :check_availability]
   before_action :set_bus
 
   def index
-    @reservations = policy_scope(Reservation)
+    reservation_date = params[:reservation_for]
+    @reservations = policy_scope(@bus, policy_scope_class: ReservationPolicy::Scope)
+    @reservations = @reservations.where(reservation_for: reservation_date) unless reservation_date.blank?
   end
 
   def new
@@ -11,7 +13,8 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    seat_ids = params[:seat_id].reject(&:blank?)
+    fail
+    seat_ids = params[:seat_ids].reject(&:blank?)
     reservation_for = params[:reservation_for]
     @reservation = Reservation.create_reservation(@bus, current_user, seat_ids, reservation_for)
     if @reservation

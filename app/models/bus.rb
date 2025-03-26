@@ -1,7 +1,7 @@
 class Bus < ApplicationRecord
   belongs_to :bus_owner, class_name: "User"
-  has_many :seats
-  has_many :reservations
+  has_many :seats, dependent: :destroy
+  has_many :reservations, dependent: :destroy
   has_many :users, through: :reservations
 
   has_one_attached :main_image
