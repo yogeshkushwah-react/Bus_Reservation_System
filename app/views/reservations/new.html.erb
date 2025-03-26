@@ -1,10 +1,27 @@
-<%= form_with(model:[@bus,@reservation], html: {'data-turbo' => "false"}) do |f| %>
+<%= form_with url:bus_reservations_path(@bus), remote: true do |f| %>
+  <%= f.hidden_field :bus_id,value:@bus.id,id:"bus_id" %>
   <%= f.label :reservation_for %>
-  <%= f.date_field :reservation_for %>
-  <div class="bus">
-    <div class="seat">
-      <%= f.collection_check_boxes :seat_id, Seat.order(:seat_no), :id, :seat_no %>
-    </div>
-  </div>
-  <%= f.submit "Book" %>
+  <%= f.date_field :reservation_for, id:"reservation_date"%>
+  <%= f.submit "Check Available Seats" %>
 <% end %>
+<div id="available-seats"></div>
+<script>
+  $(function(){
+   $('#reservation_date').on('change',function(){
+  let reservation_for=$(this).val();
+  let busId=$('#bus_id').val()
+  if(reservation_date)
+  {
+     $.ajax({
+     url: `/buses/${busId}/reservations/check_availability`,
+     type: 'GET',
+     data: { reservation_for: reservation_for },
+     success: function(response) {
+      $('#available-seats').html(response);
+       },
+
+     })
+  }
+    })
+    })
+</script>

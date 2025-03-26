@@ -3,22 +3,16 @@ class ReservationsController < ApplicationController
   before_action :set_bus
 
   def index
-    # if current_user.bus_owner?
-    #   @reservations = Reservation.all
-    # else
-    #   @reservations = current_user.reservations.all
-    # end
     @reservations = policy_scope(Reservation)
   end
 
   def new
     @reservation = Reservation.new
-    
   end
 
   def create
-    seat_ids = params[:reservation][:seat_id].reject(&:blank?)
-    reservation_for = params[:reservation][:reservation_for]
+    seat_ids = params[:seat_id].reject(&:blank?)
+    reservation_for = params[:reservation_for]
     @reservation = Reservation.create_reservation(@bus, current_user, seat_ids, reservation_for)
     if @reservation
       redirect_to bus_reservations_path(@bus), notice: "Reservation successful"
@@ -34,7 +28,10 @@ class ReservationsController < ApplicationController
   end
 
   def check_availability
-    @available_seats
+    @total_seats = @bus.seats
+    @booked_seats = Reservation.where(bus_id: params[:bus_id], reservation_for: params[:reservation_for]).pluck(:seat_id)
+
+    render partial: "available_seats", locals: { total_seats: @total_seats, booked_seats: @booked_seats }
   end
 
   private

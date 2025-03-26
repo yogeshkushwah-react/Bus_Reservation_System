@@ -1,0 +1,6 @@
+<% @bus_owners.each { |bus_owner| %>
+<div>
+  Email :<%=bus_owner.email %>
+  <%= link_to "Buses", bus_owner_buses_path(bus_owner)	%>
+</div>
+<%} %>
