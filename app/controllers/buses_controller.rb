@@ -18,7 +18,6 @@ class BusesController < ApplicationController
     authorize Bus
     @bus = Bus.new(bus_params)
     @bus.bus_owner = current_user
-    @bus.create_seats
     if @bus.save
       redirect_to buses_path, notice: "Bus added successfully!"
     else

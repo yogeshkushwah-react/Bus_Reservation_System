@@ -27,7 +27,7 @@
         </div>
         <div class="form-group">
           <%= f.label :no_of_seats %>
-          <%= f.number_field :no_of_seats,class: "form-control"  %>
+          <%= f.number_field :no_of_seats,class: "form-control" ,min:"20",max:"53" %>
           <div class="text-danger"><%= @bus.errors[:no_of_seats].first %></div>
         </div>
         <div class="form-group">

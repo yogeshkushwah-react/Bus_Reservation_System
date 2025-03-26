@@ -13,8 +13,7 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    fail
-    seat_ids = params[:seat_ids].reject(&:blank?)
+    seat_ids = params[:seat_ids]
     reservation_for = params[:reservation_for]
     @reservation = Reservation.create_reservation(@bus, current_user, seat_ids, reservation_for)
     if @reservation
