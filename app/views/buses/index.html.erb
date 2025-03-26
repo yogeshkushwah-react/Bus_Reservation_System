@@ -1,23 +1,47 @@
-<% @buses.each do |bus|%>
-  <div class="card" style="width: 100%">
-    <%# <img src="bus-image.jpg" class="card-img-top" alt="Bus Image"> %>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-6">
-          <h5 class="card-title"><%= link_to bus.name.upcase, bus_path(bus) %></h5>
-        </h5>
-      </div>
-      <div class="col-md-6 text-md-end">
-        <% if bus.approved? %>
-          <%= link_to "View Seats",new_bus_reservation_path(bus),class:"btn btn-primary"  %>
-        <% elsif policy(bus).show?%>
-          <h6><%= bus.status && bus.status.capitalize %></h6>
-        <% end %>
-      </div>
+ <% if @buses.any? %>
+  <section style="background-color: #eee;">
+    <div class="container py-5">
+      <% @buses.each do |bus|%>
+        <div class="row justify-content-center mb-3">
+          <div class="col-md-12 col-xl-10">
+            <div class="card shadow-0 border rounded-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                    <div class="bg-image hover-zoom ripple rounded ripple-surface ">
+                      <div class="parent-div w-50">
+                        <%= main_image(bus) %>
+                      </div>
+                      <a href="#!">
+                        <div class="hover-overlay">
+                          <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-xl-6 mt-4">
+                    <h5><%= link_to bus.name.upcase, bus_path(bus) %></h5>
+                    <div class="mb-2 text-muted big">
+                      <span> <%= bus.source_route.upcase %> to <%= bus.destination_route.upcase %></span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                    <div class="d-flex flex-row align-items-center mt-4">
+                      <% if bus.approved? %>
+                        <%= link_to "View Seats",new_bus_reservation_path(bus),class:"btn btn-primary"  %>
+                      <% elsif policy(bus).show?%>
+                        <h6 class="text-danger"><%= bus.status && bus.status.capitalize %></h6>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-    <div class="my-3"></div>
-    <!-- Margin between rows -->
-    <p class="card-text"><%= bus.source_route.upcase %> to <%= bus.destination_route.upcase %></p>
-  </div>
-</div>
+  </section>
+<% else %>
+  <p class="text-center mt-5">Buses are not available</p>
 <% end %>

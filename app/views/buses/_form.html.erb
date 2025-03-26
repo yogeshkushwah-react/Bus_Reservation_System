@@ -1,23 +1,48 @@
-<%= form_with(model:@bus) do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name,autofocus:true %>
+<div class="container text-bg-light p-3" >
+  <div class="card mx-auto mt-3 card shadow-0 border rounded-4 shadow-lg p-3 mb-5 bg-white rounded" style="max-width: 400px;">
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      <%= form_with(model: @bus) do |f| %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: "form-control" %>
+          <div class="text-danger"><%= @bus.errors[:name].first %></div>
+        </div>
+        <% unless @bus.persisted? %>
+          <div class="form-group">
+            <%= f.label :registration_no %>
+            <%= f.text_field :registration_no, class: "form-control" %>
+            <div class="text-danger"><%= @bus.errors[:registration_no].first %></div>
+          </div>
+        <% end %>
+        <div class="form-group">
+          <%= f.label :source_route %>
+          <%= f.text_field :source_route, class: "form-control" %>
+          <div class="text-danger"><%= @bus.errors[:source_route].first %></div>
+        </div>
+        <div class="form-group">
+          <%= f.label :destination_route %>
+          <%= f.text_field :destination_route, class: "form-control" %>
+          <div class="text-danger"><%= @bus.errors[:destination_route].first %></div>
+        </div>
+        <div class="form-group">
+          <%= f.label :no_of_seats %>
+          <%= f.number_field :no_of_seats,class: "form-control"  %>
+          <div class="text-danger"><%= @bus.errors[:no_of_seats].first %></div>
+        </div>
+        <div class="form-group">
+          <%= f.label :main_image,"Upload Image" %>
+          <%= f.file_field :main_image,class: "form-control"  %>
+          <div class="text-danger"><%= @bus.errors[:main_image].first %></div>
+        </div>
+        <div class="form-group text-center mt-3">
+          <% if @bus.new_record? %>
+            <%=f.submit "Add Bus", class: "btn btn-primary"%>
+          <% else %>
+            <%=f.submit "Update Bus", class: "btn btn-primary"%>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div>
-    <%= f.label :registration_no %>
-    <%= f.text_field :registration_no %>
-  </div>
-  <div>
-    <%= f.label :source_route %>
-    <%= f.text_field :source_route %>
-  </div>
-  <div>
-    <%= f.label :destination_route %>
-    <%= f.text_field :destination_route %>
-  </div>
-  <div>
-    <%= f.label :no_of_seats %>
-    <%= f.number_field :no_of_seats %>
-  </div>
-  <%= f.submit :submit%>
-<% end %>
+</div>

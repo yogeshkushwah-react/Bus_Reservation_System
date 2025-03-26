@@ -1,16 +1,69 @@
-<h1>Name:  <%= @bus.name %></h1>
-<h1>Registration no: <%= @bus.registration_no %></h1>
-<h1>Source Route: <%= @bus.source_route %></h1>
-<h1>Destination Route: <%= @bus.destination_route %></h1>
-<% if policy(@bus).show?|| policy(User).admin?  %>
-  status: <%= @bus.status  %>
-<% end %>
-<% if policy(User).admin? %>
-  <% if  @bus.approved?%>
-    <%= link_to "Reject",  reject_bus_path(@bus),class:"btn btn-danger"%>
-  <% else%>
-    <%= link_to "Approve", approve_bus_path(@bus) ,class:"btn btn-primary"%>  <% end %>
-<% end %>
-<% if @bus.approved? %>
-  <%= link_to "View Seats", new_bus_reservation_path(@bus)%>
-<% end %>
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-12 col-xl-7">
+        <div class="card shadow-0 border rounded-4">
+          <div class="card-body h-50">
+            <div class="row">
+              <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                  <%= main_image(@bus) %>
+                  <a href="#!">
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <h5><%= @bus.name %></h5>
+                <div class="d-flex flex-row">
+                  <div class="text-danger mb-1 me-2">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <span>310</span>
+                </div>
+                <div class="mt-2 text-muted big">
+                  <span>Registration Number</span>
+                  <span class="text-primary"> : </span>
+                  <span><%= @bus.registration_no %></span>
+                </div>
+                <div class="mb-2 text-muted big">
+                  <span>Source Route </span>
+                  <span class="text-primary"> : </span>
+                  <span> <%= @bus.source_route.capitalize%></span>
+                </div>
+                <div class="mb-2 text-muted big">
+                  <span>Destination Route </span>
+                  <span class="text-primary"> : </span>
+                  <span> <%= @bus.destination_route.capitalize %></span>
+                </div>
+                <h4 class="mb-1 me-1 small">Status:<% if policy(@bus).show?|| policy(User).admin?  %>
+                    <%= @bus.status.capitalize  %>
+                  <% end %></h4>
+                <% if policy(@bus).show? %>
+                  <%= link_to "Edit",  edit_bus_path(@bus),class:"btn btn-primary "%>
+                  <%= link_to "Delete", @bus ,data:{turbo_method: :delete,turbo_confirm: "Are you sure?"},class:"btn btn-danger "%>
+                <% end %>
+                <% if policy(User).admin? %>
+                  <% if  @bus.approved?%>
+                    <%= link_to "Reject",  reject_bus_path(@bus),class:"btn btn-danger mt-2"%>
+                  <% else%>
+                    <%= link_to "Approve", approve_bus_path(@bus) ,class:"btn btn-primary mt-2"%>  <% end %>
+                <% end %>
+                <% if @bus.approved? %>
+                  <%= link_to "View Seats", new_bus_reservation_path(@bus),class:"btn btn-outline-primary mt-2 "%>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>

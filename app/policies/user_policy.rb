@@ -1,8 +1,4 @@
 class UserPolicy < ApplicationPolicy
-  def show?
-    user.admin? || user.bus_owner?
-  end
-
   def index?
     user.admin?
   end
@@ -13,6 +9,10 @@ class UserPolicy < ApplicationPolicy
 
   def admin?
     user && user.admin?
+  end
+
+  def busowner?
+    user && user.bus_owner?
   end
 
   def approve_bus?

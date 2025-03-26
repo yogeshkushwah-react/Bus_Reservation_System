@@ -23,6 +23,14 @@
       <%= render "buses/search" %>
       <ul class="navbar-nav ms-3">
         <% if user_signed_in? %>
+          <% if policy(:user).busowner? %>
+            <li class="nav-item" style="width: 100px;">
+              <%= link_to "Add Bus", new_bus_path ,class:"nav-link d-flex align-items-center"%>
+            </li>
+          <% end %>
+          <li class="nav-item" style="width: 100px;">
+            <%= link_to "Profile", user_profile_type ,class:"nav-link d-flex align-items-center"%>
+          </li>
           <li class="nav-item" style="width: 100px;">
             <%= link_to "Log out", destroy_user_session_path ,class:"nav-link d-flex align-items-center",data:{turbo_method: :delete}%>
           </li>
